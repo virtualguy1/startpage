@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="classes">
+  <head>
+    <title>Startpage</title>
+    <script type="text/javascript">
+      function displayNextImage() {
+        x = x === 19 ? 1 : x + 1;
+        document.getElementById("img").src = "img/ (" + x + ").jpg";
+      }
+
+      function startTimer() {
+        setInterval(displayNextImage, 3000);
+      }
+      var x = 1;
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="startTimer()">
+    <nav>
+      <h1>ジェイ</h1>
+      <ul>
+        <li>General</li>
+        <li><a href="https://mail.google.com/">gmail</a></li>
+        <li><a href="https://mail.yahoo.com/">ymail</a></li>
+        <li><a href="https://web.whatsapp.com/">whatsapp</a></li>
+      </ul>
+
+      <ul>
+        <li>Anime</li>
+        <li><a href="https://anichart.net/">anichart</a></li>
+        <li><a href="https://anilist.co/home">anilist</a></li>
+        <li><a href="https://zoro.to/">zoro</a></li>
+        <li><a href="https://subsplease.org/">subsplease</a></li>
+      </ul>
+
+      <ul>
+        <li>Work</li>
+        <li><a href="https://github.com/virtualguy1">github</a></li>
+        <li><a href="https://www.linkedin.com/">linkedin</a></li>
+        <li><a href="https://twitter.com/">twitter</a></li>
+        <li><a href="https://www.reddit.com/r/unixporn/">r/unixporn</a></li>
+
+        <form action="https://google.com/" method="GET">
+          <input
+            autofocus
+            name="q"
+            type="search"
+            placeholder="Search with Google"
+          />
+        </form>
+      </ul>
+
+      <ul>
+        <li>Social</li>
+        <li><a href="https://www.facebook.com/">facebook</a></li>
+        <li><a href="https://www.youtube.com/">youtube</a></li>
+      </ul>
+    </nav>
+
+    <img id="img" src="img/ (1).jpg" alt="image" />
+  </body>
+</html>
