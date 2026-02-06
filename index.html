@@ -4,6 +4,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Startpage</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
@@ -13,7 +23,9 @@
                 <h1 class="header__title">Startpage</h1>
 
                 <form class="search" action="https://google.com/" method="GET">
+                    <label for="search-input" class="sr-only">Search</label>
                     <input
+                        id="search-input"
                         class="search__input"
                         autofocus
                         name="q"
@@ -34,19 +46,6 @@
         </div>
 
         <script src="data.js"></script>
-        <script>
-            // Simple clock display
-            function updateClock() {
-                const now = new Date();
-                const hours = String(now.getHours()).padStart(2, "0");
-                const minutes = String(now.getMinutes()).padStart(2, "0");
-                const seconds = String(now.getSeconds()).padStart(2, "0");
-                document.getElementById("clock").textContent =
-                    `${hours}:${minutes}:${seconds}`;
-            }
-
-            updateClock();
-            setInterval(updateClock, 1000);
-        </script>
+        <script src="app.js"></script>
     </body>
 </html>
