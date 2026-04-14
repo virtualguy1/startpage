@@ -1,51 +1,50 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Startpage</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        />
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        <div class="container">
-            <!-- Header -->
-            <header class="header">
-                <h1 class="header__title">Startpage</h1>
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: dark light;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14110f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f5f0e8" media="(prefers-color-scheme: light)">
+  <title>Start</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#bookmarks-grid" class="skip-link">Skip to bookmarks</a>
+  
+  <div class="page-wrapper">
 
-                <form class="search" action="https://google.com/" method="GET">
-                    <label for="search-input" class="sr-only">Search</label>
-                    <input
-                        id="search-input"
-                        class="search__input"
-                        autofocus
-                        name="q"
-                        type="search"
-                        placeholder="search_"
-                        autocomplete="off"
-                    />
-                </form>
-            </header>
+    <h1 class="visually-hidden">Start Page</h1>
 
-            <!-- Categories -->
-            <main class="categories"></main>
-
-            <!-- Footer -->
-            <footer class="footer">
-                <span class="footer__time" id="clock"></span>
-            </footer>
+    <header class="site-header">
+      <div class="clock-block">
+        <div class="clock">
+          <span class="clock-main" id="clock-main">00:00</span><span class="clock-seconds" id="clock-seconds">:00</span>
         </div>
+        <div class="date" id="date"></div>
+      </div>
+      <div class="search-block">
+        <label for="search-input" class="visually-hidden">Search bookmarks</label>
+        <input
+          type="text"
+          class="search-input"
+          id="search-input"
+          placeholder="search…"
+          autocomplete="off"
+          spellcheck="false"
+        >
+      </div>
+    </header>
 
-        <script src="data.js"></script>
-        <script src="app.js"></script>
-    </body>
+    <main class="bookmarks-grid" id="bookmarks-grid"></main>
+
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js" defer></script>
+</body>
 </html>
