@@ -51,7 +51,7 @@ const bookmarks = {
     },
     classroom: {
       url: "https://classroom.google.com/",
-      logo: "<fa-solid fa-graduation-cap",
+      logo: "fa-solid fa-graduation-cap",
       displayUrl: "classroom.google.com",
     },
     linkedin: {
