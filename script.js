@@ -1,5 +1,7 @@
 // ─── Clock ────────────────────────────────────────────
 
+let currentDay = null;
+
 function updateClock() {
   const now = new Date();
   const h = String(now.getHours()).padStart(2, "0");
@@ -8,10 +10,16 @@ function updateClock() {
 
   document.getElementById("clock-main").textContent = `${h}:${m}`;
   document.getElementById("clock-seconds").textContent = `:${s}`;
+
+  if (now.getDate() !== currentDay) {
+    currentDay = now.getDate();
+    updateDate(now);
+  }
 }
 
-function updateDate() {
-  const now = new Date();
+const DAY_KANJI = ["日", "月", "火", "水", "木", "金", "土"];
+
+function updateDate(now) {
   const locale = navigator.languages?.[0] || navigator.language || "en-US";
   const formatted = now.toLocaleDateString(locale, {
     weekday: "long",
@@ -19,23 +27,42 @@ function updateDate() {
     month: "long",
     day: "numeric",
   });
-  document.getElementById("date").textContent = formatted;
+
+  const kanji = document.createElement("span");
+  kanji.className = "date-kanji";
+  kanji.setAttribute("aria-hidden", "true");
+  kanji.textContent = DAY_KANJI[now.getDay()];
+
+  document
+    .getElementById("date")
+    .replaceChildren(document.createTextNode(`${formatted} · `), kanji);
 }
 
 // ─── Render Bookmarks ─────────────────────────────────
 
 function renderBookmarks() {
   const grid = document.getElementById("bookmarks-grid");
-  let globalIndex = 0;
 
   for (const [category, links] of Object.entries(bookmarks)) {
-    const col = document.createElement("div");
+    const col = document.createElement("section");
     col.className = "category";
     col.dataset.category = category;
 
     const title = document.createElement("h2");
     title.className = "category-title";
-    title.textContent = category;
+
+    const dot = document.createElement("span");
+    dot.className = "pane-dot";
+    dot.setAttribute("aria-hidden", "true");
+
+    const label = document.createElement("span");
+    const path = document.createElement("span");
+    path.className = "pane-path";
+    path.setAttribute("aria-hidden", "true");
+    path.textContent = "~/";
+    label.append(path, document.createTextNode(category));
+
+    title.append(dot, label);
     col.appendChild(title);
 
     const ul = document.createElement("ul");
@@ -46,7 +73,6 @@ function renderBookmarks() {
       li.className = "link-item";
       li.dataset.slug = slug;
       li.dataset.display = displayUrl;
-      li.style.animationDelay = `${globalIndex * 55}ms`;
 
       const a = document.createElement("a");
       a.href = url;
@@ -68,8 +94,6 @@ function renderBookmarks() {
       a.append(icon, nameSpan, urlSpan);
       li.appendChild(a);
       ul.appendChild(li);
-
-      globalIndex++;
     }
 
     col.appendChild(ul);
@@ -101,6 +125,21 @@ function performSearch(query) {
 
     cat.classList.toggle("hidden", visibleCount === 0);
   });
+
+  updateTarget(lowerQuery);
+}
+
+function updateTarget(query) {
+  document
+    .querySelectorAll(".link-item.is-target")
+    .forEach((el) => el.classList.remove("is-target"));
+
+  if (!query) return;
+
+  const first = document.querySelector(
+    ".category:not(.hidden) .link-item:not(.hidden)",
+  );
+  if (first) first.classList.add("is-target");
 }
 
 function updateURL(query) {
@@ -111,6 +150,12 @@ function updateURL(query) {
     url.searchParams.delete("q");
   }
   window.history.replaceState({}, "", url);
+}
+
+function clearSearch(input) {
+  input.value = "";
+  performSearch("");
+  updateURL("");
 }
 
 function initSearch() {
@@ -131,36 +176,57 @@ function initSearch() {
   });
 
   input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      clearSearch(input);
+      input.blur();
+      return;
+    }
+
     if (e.key !== "Enter") return;
 
     const query = input.value.trim();
     if (!query) return;
 
-    const hasVisible = document.querySelector(".link-item:not(.hidden)");
-    if (!hasVisible) {
+    const target = document.querySelector(
+      ".category:not(.hidden) .link-item:not(.hidden) a",
+    );
+
+    if (target) {
+      target.click();
+    } else {
       window.open(
         `https://www.google.com/search?q=${encodeURIComponent(query)}`,
         "_blank",
         "noopener,noreferrer",
       );
-      input.value = "";
-      updateURL("");
-      // Reset filter state
-      document
-        .querySelectorAll(".link-item.hidden")
-        .forEach((el) => el.classList.remove("hidden"));
-      document
-        .querySelectorAll(".category.hidden")
-        .forEach((el) => el.classList.remove("hidden"));
+    }
+
+    clearSearch(input);
+  });
+
+  // Typing anywhere routes to the prompt
+  document.addEventListener("keydown", (e) => {
+    if (e.defaultPrevented || document.activeElement === input) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+    if (e.key === "/") {
+      e.preventDefault();
+      input.focus();
+      return;
+    }
+
+    if (e.key.length === 1 && e.key !== " ") {
+      input.focus();
     }
   });
+
+  input.focus({ preventScroll: true });
 }
 
 // ─── Init ─────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", () => {
   updateClock();
-  updateDate();
   setInterval(updateClock, 1000);
   renderBookmarks();
   initSearch();

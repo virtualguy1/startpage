@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="theme-color"
-            content="#14110f"
+            content="#101319"
             media="(prefers-color-scheme: dark)"
         />
         <meta
             name="theme-color"
-            content="#f5f0e8"
+            content="#e9ebef"
             media="(prefers-color-scheme: light)"
         />
         <title>Start</title>
@@ -18,11 +18,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=DotGothic16&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap"
             as="style"
         />
         <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=DotGothic16&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap"
             rel="stylesheet"
         />
         <link
@@ -37,32 +37,36 @@
         <div class="page-wrapper">
             <h1 class="visually-hidden">Start Page</h1>
 
-            <header class="site-header">
-                <div class="clock-block">
+            <div class="layout">
+                <header class="side">
                     <div class="clock">
                         <span class="clock-main" id="clock-main">00:00</span
                         ><span class="clock-seconds" id="clock-seconds"
                             >:00</span
                         >
                     </div>
-                    <div class="date" id="date"></div>
-                </div>
-                <div class="search-block">
-                    <label for="search-input" class="visually-hidden"
-                        >Search bookmarks</label
-                    >
-                    <input
-                        type="text"
-                        class="search-input"
-                        id="search-input"
-                        placeholder="search…"
-                        autocomplete="off"
-                        spellcheck="false"
-                    />
-                </div>
-            </header>
+                    <p class="date" id="date"></p>
+                    <div class="prompt">
+                        <span class="prompt-symbol" aria-hidden="true">❯</span>
+                        <label for="search-input" class="visually-hidden"
+                            >Search bookmarks</label
+                        >
+                        <input
+                            type="text"
+                            class="search-input"
+                            id="search-input"
+                            placeholder="search"
+                            autocomplete="off"
+                            spellcheck="false"
+                        />
+                    </div>
+                    <p class="prompt-hint">
+                        type anywhere to search · ↵ opens first match
+                    </p>
+                </header>
 
-            <main class="bookmarks-grid" id="bookmarks-grid"></main>
+                <main class="bookmarks-grid" id="bookmarks-grid"></main>
+            </div>
         </div>
 
         <script src="data.js"></script>
