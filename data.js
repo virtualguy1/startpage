@@ -27,11 +27,6 @@ const bookmarks = {
       logo: "fa-solid fa-chart-line",
       displayUrl: "anichart.net",
     },
-    hianime: {
-      url: "https://hianime.to/",
-      logo: "fa-solid fa-play",
-      displayUrl: "hianime.to",
-    },
     subsplease: {
       url: "https://subsplease.org/",
       logo: "fa-solid fa-download",
@@ -41,6 +36,11 @@ const bookmarks = {
       url: "https://snowfl.com/",
       logo: "fa-solid fa-download",
       displayUrl: "snowfl.com",
+    },
+    unixporn: {
+      url: "https://www.reddit.com/r/unixporn/",
+      logo: "fa-brands fa-reddit",
+      displayUrl: "reddit.com",
     },
   },
   Work: {
@@ -59,10 +59,10 @@ const bookmarks = {
       logo: "fa-brands fa-linkedin",
       displayUrl: "linkedin.com",
     },
-    unixporn: {
-      url: "https://www.reddit.com/r/unixporn/",
-      logo: "fa-brands fa-reddit",
-      displayUrl: "reddit.com",
+    ChatGPT: {
+      url: "https://chatgpt.com/",
+      logo: "fa-solid fa-person-drowning",
+      displayUrl: "chatgpt.com",
     },
   },
   Social: {
